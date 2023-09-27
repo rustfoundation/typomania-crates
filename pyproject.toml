@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "typomania"
+version = "0.1.0"
+description = ""
+authors = ["Adam Harvey <adam@adamharvey.name>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+spacy = "^3.6.1"
+en-core-web-lg = {url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.6.0/en_core_web_lg-3.6.0-py3-none-any.whl"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

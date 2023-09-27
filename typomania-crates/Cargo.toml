@@ -1,0 +1,31 @@
+[package]
+name = "typomania-crates"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { version = "1.0.75", features = ["backtrace"] }
+chrono = "0.4.28"
+clap = { version = "4.4.2", features = ["derive", "env"] }
+colored = "2.0.4"
+futures = "0.3.28"
+is-terminal = "0.4.9"
+parse_duration = "2.1.1"
+serde = { version = "1.0.188", features = ["derive"] }
+spacy = { path = "../spacy", optional = true }
+sqlx = { git = "https://github.com/launchbadge/sqlx", rev = "d0fbe7f", features = [
+  "postgres",
+  "runtime-tokio",
+  "chrono",
+] }
+supports-hyperlinks = "2.1.0"
+terminal-link = "0.1.0"
+tokio = { version = "1.32.0", features = ["full"] }
+toml = "0.7.6"
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+typomania = "0.1.0"
+
+[features]
+default = ["nlp"]
+nlp = ["dep:spacy"]

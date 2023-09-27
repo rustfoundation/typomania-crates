@@ -1,0 +1,58 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT\n    crates.name AS name,\n    COALESCE(users.gh_login, teams.login) AS login,\n    crates.homepage AS homepage,\n    crates.repository AS repository,\n    crates.documentation AS documentation,\n    crates.description AS description,\n    crates.downloads AS downloads\nFROM (\n    SELECT crates.*, recent_crate_downloads.downloads AS recent_downloads\n    FROM crates\n    LEFT JOIN recent_crate_downloads ON (crates.id = recent_crate_downloads.crate_id)\n    WHERE recent_crate_downloads.downloads IS NOT NULL\n    ORDER BY recent_crate_downloads.downloads DESC\n    LIMIT $1\n) AS crates\nLEFT JOIN crate_owners ON (crates.id = crate_owners.crate_id)\nLEFT JOIN users ON (crate_owners.owner_id = users.id AND crate_owners.owner_kind = 0 AND NOT crate_owners.deleted)\nLEFT JOIN teams ON (crate_owners.owner_id = teams.id AND crate_owners.owner_kind = 1 AND NOT crate_owners.deleted)\nORDER BY crates.recent_downloads DESC;\n",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "login",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "homepage",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "repository",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "documentation",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "description",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "downloads",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false,
+      null,
+      true,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "794ecf54cfa996821f80cecb355cd82fb95af340d005eacf8fcfe0072618d9ce"
+}

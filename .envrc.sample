@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Location of the *postgres* database. For example, if you have created a
+# blank database locally named `cargo_registry`, this would be
+# `postgres://postgres@localhost/cargo_registry`.
+export DATABASE_URL=postgres://crates:crates@localhost:54327/cargo_registry

@@ -1,0 +1,3 @@
+[workspace]
+members = ["spacy", "typomania-crates"]
+resolver = "2"
